@@ -3,17 +3,9 @@ package com.gs.spring_hib_configurable;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-{
-    /**
-     * Rigourous Test :-)
-     */
+public class AppTest {
 	@Test
-    public void testApp()
-    {
-        assertTrue( true );
-    }
+	public void testApp() {
+		assertTrue(true);
+	}
 }
