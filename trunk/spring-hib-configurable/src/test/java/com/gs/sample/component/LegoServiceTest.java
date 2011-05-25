@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.gs.sample.pojo.LegoIndianaJonesPojo;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,6 +21,12 @@ public class LegoServiceTest {
 	
 	@Autowired
 	private ApplicationContext applicationContext;
+	
+	@Test public void checkAspectOnPojo() {
+		LegoIndianaJonesPojo indi = new LegoIndianaJonesPojo();
+		// add aspect using @Configurable/spring-config/aspectj to inject the LegoService to the LegoIndianaJonesPojo
+		//indi.doYourThingIndi();
+	}
 	
 	@Test public void basicTesting() {
 		assertNotNull(legoService);
