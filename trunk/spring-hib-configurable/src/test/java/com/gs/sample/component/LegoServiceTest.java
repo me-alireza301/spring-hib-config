@@ -21,12 +21,15 @@ public class LegoServiceTest {
 	
 	@Test public void basicTesting() {
 		assertNotNull(legoService);
+		legoService.whipHorse();
+		legoService.whipMerchant();
+		System.out.println("AFTER");
 	}
 	
-	@Ignore
-	@Test public void beanDumper() {
-		for(String s : applicationContext.getBeanDefinitionNames()) {
-			System.out.printf("%s - %s\n",s,applicationContext.getBean(s));
-		}
-	}
+//	@Ignore
+//	@Test public void beanDumper() {
+//		for(String s : applicationContext.getBeanDefinitionNames()) {
+//			System.out.printf("%s - %s\n",s,applicationContext.getBean(s));
+//		}
+//	}
 }
