@@ -1,0 +1,7 @@
+#summary caution, and good things
+
+=== Best Practices (or positive considerations) ===
+ * An alternative style promotes the use of domain-specific interfaces.
+
+=== Caveats ===
+ * {{{@Configurable}}}-based DI uses reflection to inject all dependencies. For objects that are created often, this may cause a performance problem.
