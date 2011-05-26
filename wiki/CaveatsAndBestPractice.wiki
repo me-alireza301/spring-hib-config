@@ -2,6 +2,7 @@
 
 === Best Practices (or positive considerations) ===
  * An alternative style promotes the use of domain-specific interfaces.
+ * You can avoid the performance problem and the object’s dependency on Spring using domain interface-based DI.
 
 === Caveats ===
  * {{{@Configurable}}}-based DI uses reflection to inject all dependencies. For objects that are created often, this may cause a performance problem.
