@@ -2,7 +2,7 @@ package com.gs.sample.component;
 
 import org.springframework.stereotype.Component;
 
-@Component
+@Component(value="legoService")
 public class LegoServiceImpl implements LegoService {
 
 	public void whipMerchant() {

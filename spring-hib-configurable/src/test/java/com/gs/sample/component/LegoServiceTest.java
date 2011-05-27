@@ -24,10 +24,13 @@ public class LegoServiceTest {
 	
 	@Test public void checkAspectOnPojo() {
 		LegoIndianaJonesPojo indi = new LegoIndianaJonesPojo();
+//		LegoIndianaJonesPojo indi = applicationContext.getBean(LegoIndianaJonesPojo.class);
+		assertNotNull(indi.getLegoService());
 		// add aspect using @Configurable/spring-config/aspectj to inject the LegoService to the LegoIndianaJonesPojo
-		//indi.doYourThingIndi();
+		indi.doYourThingIndi();
 	}
 	
+	@Ignore
 	@Test public void basicTesting() {
 		assertNotNull(legoService);
 		legoService.whipHorse();
@@ -35,10 +38,10 @@ public class LegoServiceTest {
 		System.out.println("AFTER");
 	}
 	
-//	@Ignore
-//	@Test public void beanDumper() {
-//		for(String s : applicationContext.getBeanDefinitionNames()) {
-//			System.out.printf("%s - %s\n",s,applicationContext.getBean(s));
-//		}
-//	}
+	@Ignore
+	@Test public void beanDumper() {
+		for(String s : applicationContext.getBeanDefinitionNames()) {
+			System.out.printf("%s - %s\n",s,applicationContext.getBean(s));
+		}
+	}
 }
