@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
+                http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+		<bean id="sessionFactory" scope="singleton"
+		        class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="hibernateProperties">
+			<props>
+<!-- 				<prop key="hibernate.dialect">${hibernate.firstdb.dialect}</prop>
+ -->				<prop key="hibernate.show_sql">true</prop>
+ 
+<!-- 				<prop key="hibernate.firstdb.connection.driver_class">${hibernate.firstdb.connection.driver_class}</prop>
+				<prop key="hibernate.firstdb.connection.username">${hibernate.firstdb.connection.username}</prop>
+				<prop key="hibernate.firstdb.connection.password">${hibernate.firstdb.connection.password}</prop>
+				<prop key="hibernate.firstdb.connection.url">${hibernate.firstdb.connection.url}</prop>
+				<prop key="hibernate.firstdb.max_fetch_depth">${hibernate.firstdb.max_fetch_depth}</prop>
+				<prop key="hibernate.firstdb.cglib.use_reflection_optimizer">${hibernate.firstdb.cglib.use_reflection_optimizer}</prop>
+				<prop key="hibernate.firstdb.query.factory_class">${hibernate.firstdb.query.factory_class}</prop>
+				<prop key="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</prop>
+				<prop key="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</prop>
+				<prop key="hibernate.cache.use_query_cache">true</prop>
+				<prop key="hibernate.cache.use_second_level_cache">true</prop>
+ -->				
+			</props>
+		</property>
+		    <property name="dataSource" ref="dataSource" />
+			<property name="annotatedClasses">
+				<list>
+					<value>com.gs.sample.domain.other.Light</value>
+				</list>
+			</property>
+		    <property name="entityInterceptor" ref="objectFactoryHibernateInterceptor"/>
+		    <!-- <property name="packagesToScan" value="com.gs.sample.domain.other"/> -->
+<!-- 			<property name="packagesToScan">
+				<list>
+					<value>com/gs/sample/domain/other</value>
+				</list>
+			</property>
+ -->		</bean>
+
+		<!-- FactoryBean that creates the EntityManagerFactory  -->
+		<!-- com.gs.sample.hibernatestuff -->
+        <!-- <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> -->
+        <bean id="entityManagerFactory"
+        class="com.gs.sample.hibernatestuff.OurLocalContainerEntityManagerFactoryBean"
+        >
+                <property name="jpaVendorAdapter">
+                        <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+                </property>
+                <property name="jpaProperties">
+                        <props>
+                                <prop key="hibernate.show_sql">false</prop>
+                                <prop key="hibernate.format_sql">true</prop>
+                                <prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+                        </props>
+                </property>
+				<property name="jpaPropertyMap">
+					<map>
+					
+						<entry key="hibernate.ejb.interceptor" value="com.gs.sample.hibernatestuff.ObjectFactoryHibernateInterceptor" />
+						<!-- 
+						<entry key="hibernate.ejb.interceptor" value="objectFactoryHibernateInterceptor" />
+						<entry key="hibernate.ejb.interceptor" value="com.gs.sample.hibernatestuff.ObjectFactoryHibernateInterceptor" /> 
+						-->
+						
+					</map>
+				</property>          
+                <property name="dataSource" ref="dataSource" />
+        </bean>
+        
+		<jdbc:embedded-database id="dataSource" type="HSQL">
+        <!-- 
+                <jdbc:script location="classpath:logmessage/testdb/schema.sql"/>
+                <jdbc:script location="classpath:logmessage/testdb/test-data.sql"/>
+         -->
+        </jdbc:embedded-database>
+        
+        <!-- A transaction manager for working with JPA EntityManagerFactories -->
+        <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+                <property name="entityManagerFactory" ref="entityManagerFactory" />
+        </bean>
+
+
+</beans>

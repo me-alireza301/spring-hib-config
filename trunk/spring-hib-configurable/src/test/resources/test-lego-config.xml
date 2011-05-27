@@ -9,11 +9,29 @@
                 ">
 
 
-	<context:component-scan base-package="com.gs.sample" />
+	<context:component-scan base-package="com.gs.sample" >
+	  <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
+	</context:component-scan>
 	<aop:config />
 	<aop:aspectj-autoproxy>
 		<aop:include name="indianaJonesAspect" />
 	</aop:aspectj-autoproxy>
-
-
+	<context:load-time-weaver weaver-class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver"/>
+	<!-- <bean class="com.gs.sample.pojo.LegoIndianaJonesPojo" scope="prototype"/> -->
+	<bean id="jed" class="com.gs.sample.pojo.LegoIndianaJonesPojo" depends-on="legoService"
+		scope="prototype">
+		<property name="legoService" ref="legoService" />
+	</bean>
+	
+	<context:spring-configured/>
+	<!-- 
+	<bean id="jed" class="com.gs.sample.pojo.LegoIndianaJonesPojo" depends-on="legoService"
+		scope="prototype">
+		<property name="legoService" ref="legoService" />
+	</bean>
+	 -->
+<!-- 	
+In order for the following to succeed it seems we need the -javaagent:/path/to/inst.jar flag (config on surefire plugin or elsewhere)
+<context:load-time-weaver aspectj-weaving="on"/>
+ -->
 </beans>          
