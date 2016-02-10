@@ -1,0 +1,1 @@
+  * `@Configurable`-based DI uses reflection to inject all dependencies. For objects that are created often, this may cause a performance problem.
